@@ -1,3 +1,5 @@
+from CriarPersonagem.Personagem import Personagem
+
 class MenuCriarPersonagem():
 
     def mostrar_menu(self):
@@ -5,10 +7,6 @@ class MenuCriarPersonagem():
         print("----- Criação de Personagem / Distribuições -----\n")
 
         nome = input("Nome do Personagem: ")
-
-        # personagens = []
-        # p = Personagem(nome)
-        # personagens.append(p)
 
         while True:
 
@@ -22,19 +20,15 @@ class MenuCriarPersonagem():
 
                 match(opcao):
                     case 1:
-                        # p.classico()
-                        # p.exibirStatus()
-                        print("Clássico")
+                        # adicionar bloco de código
                         break
 
                     case 2:
-                        # p.aventureiro()
-                        print("Aventureiro")
+                        # adicionar bloco de código
                         break
 
                     case 3:
-                        # p.heroico()
-                        print("Heroico")
+                        # adicionar bloco de código
                         break
 
                     case _:

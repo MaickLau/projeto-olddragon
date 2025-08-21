@@ -1,4 +1,4 @@
-from .menu_personagem import MenuCriarPersonagem
+from .MenuCriarPersonagem import MenuCriarPersonagem
 
 class MenuInicial():
 
