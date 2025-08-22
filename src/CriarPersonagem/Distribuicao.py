@@ -5,6 +5,7 @@ class Distribuicao():
     def __init__(self):
         self.dado = RolarDados()
 
+    # retorna um dicionário com valores aleatórios armazenados em cada chave
     def classico(self):
         atributos = {}
         atributos["Força"] = self.dado.rolar_3d6()
@@ -16,6 +17,7 @@ class Distribuicao():
 
         return atributos
 
+    # retorna uma lista com 6 valores, cada um representando a soma de um lançamento de 3 dados com 6 lados
     def aventureiro(self):
         soma = []
 
@@ -24,6 +26,7 @@ class Distribuicao():
 
         return soma
 
+    # retorna uma lista com 6 valores, cada um representando a soma de um lançamento de 4 dados com 6 lados, descartando o menor valor
     def heroico(self):
         soma = []
 

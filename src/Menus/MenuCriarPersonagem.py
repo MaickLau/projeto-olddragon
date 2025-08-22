@@ -43,69 +43,11 @@ class MenuCriarPersonagem():
                     break
 
                 case 2:
-                    valores = self.distribuicao.aventureiro()
-
-                    for chave in self.atributos:
-
-                        # laço de repetição para a verificação da existência de valor em "valores"
-                        while True:
-
-                            # laço de repetição apenas para garantir a entrada de um valor inteiro
-                            while True:
-                                print("Escolha um dos seguintes valores para cada atributo: ", end=' ')
-                                for i in valores:
-                                    print(i, end=' ')
-
-                                try:
-                                    valor = int(input(f"\n{chave}: "))
-                                    break
-                                except ValueError:
-                                    self.limpar_tela()
-                                    print("Apenas números inteiros serão aceitos!\n")
-
-                            # verifica se o valor existe, caso sim, adiciona ao atributo e remove de valores. Também limpa a tela
-                            if valor in valores:
-                                self.atributos[chave] = valor
-                                valores.remove(valor)
-                                self.limpar_tela()
-                                break
-                            else:
-                                self.limpar_tela()
-                                print("Esse valor não está disponível!\n")
-
+                    self.distribuir_e_mostrar_atributos(self.distribuicao.aventureiro())
                     break
 
                 case 3:
-                    valores = self.distribuicao.heroico()
-
-                    for chave in self.atributos:
-
-                        # laço de repetição para a verificação de valor em "valores"
-                        while True:
-
-                            # laço de repetição apenas para garantir a entrada de um valor inteiro
-                            while True:
-                                print("Escolha os valores para cada atributo: ", end=' ')
-                                for i in valores:
-                                    print(i, end=' ')
-
-                                try:
-                                    valor = int(input(f"\n{chave}: "))
-                                    break
-                                except ValueError:
-                                    self.limpar_tela()
-                                    print("Apenas valores inteiros serão aceitos!\n")
-
-                            # verifica se o valor existe, caso sim, adiciona e remove de valores. Também limpa a tela
-                            if valor in valores:
-                                self.atributos[chave] = valor
-                                valores.remove(valor)
-                                self.limpar_tela()
-                                break
-                            else:
-                                self.limpar_tela()
-                                print("Esse valor não está disponível!\n")
-
+                    self.distribuir_e_mostrar_atributos(self.distribuicao.heroico())
                     break
 
                 case _:
@@ -117,3 +59,32 @@ class MenuCriarPersonagem():
             os.system('cls')
         else:
             os.system('clear')
+
+    def distribuir_e_mostrar_atributos(self, valores):
+        for chave in self.atributos:
+
+            # para garantir que valor existe na lista antes de continuar
+            while True:
+
+                # para garantir a entrada de um número inteiro
+                while True:
+                    print("Escolha os valores para cada atributo: ", end=' ')
+                    for i in valores:
+                        print(i, end=' ')
+
+                    try:
+                        valor = int(input(f"\n{chave}: "))
+                        break
+                    except ValueError:
+                        self.limpar_tela()
+                        print("Apenas valores inteiros serão aceitos!\n")
+
+                # se válido, atribui ao dicionário e remove da lista
+                if valor in valores:
+                    self.atributos[chave] = valor
+                    valores.remove(valor)
+                    self.limpar_tela()
+                    break
+                else:
+                    self.limpar_tela()
+                    print("Esse valor não está disponível!\n")
