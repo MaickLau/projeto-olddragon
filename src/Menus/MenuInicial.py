@@ -3,6 +3,8 @@ from .MenuCriarPersonagem import MenuCriarPersonagem
 class MenuInicial():
 
     def mostrar_menuInicial(self):
+        m = MenuCriarPersonagem()
+        m.limpar_tela()
 
         while True:
             print("----- Início -----\n")
@@ -14,15 +16,17 @@ class MenuInicial():
 
                 match(opcao):
                     case 1:
-                        m = MenuCriarPersonagem()
                         m.mostrar_menu()
                     
                     case 0:
+                        m.limpar_tela()
                         print("Encerrando...\n")
                         break
 
                     case _:
+                        m.limpar_tela()
                         print("Informe um valor válido!\n")
 
             except ValueError:
+                m.limpar_tela()
                 print("Digite apenas números inteiros!\n")

@@ -8,76 +8,109 @@ class MenuCriarPersonagem():
         self.distribuicao = Distribuicao()
 
     def mostrar_menu(self):
-
+        self.limpar_tela()
         print("----- Criação de Personagem / Distribuições -----\n")
 
         while True:
 
-            print("\nEscolha o estilo de distribuição:")
-            print("1. Estilo Clássico")
-            print("2. Estilo Aventureiro")
-            print("3. Estilo Heroico")
+            # laço de repetição apenas para garantir a entrada de um valor inteiro
+            while True:
+                try:
+                    print("Escolha o estilo de distribuição:")
+                    print("1. Estilo Clássico")
+                    print("2. Estilo Aventureiro")
+                    print("3. Estilo Heroico")
+                    opcao = int(input("Escolha: "))
 
-            try:
-                opcao = int(input("Escolha: "))
+                    self.limpar_tela()
+                    break
 
-                match(opcao):
-                    case 1:
-                        self.atributos = self.distribuicao.classico()
+                except ValueError:
+                    self.limpar_tela()
+                    print("Apenas números inteiros serão aceitos!\n")
 
-                        for chave, valor in self.atributos.items():
-                            print(f"{chave}: {valor}")
-                        break
+            match(opcao):
+                case 1:
+                    self.atributos = self.distribuicao.classico()
+                    print("Valores gerados:\n")
 
-                    case 2: # melhorar bloco de código
-                        valores = self.distribuicao.aventureiro()
+                    for chave, valor in self.atributos.items():
+                        print(f"{chave}: {valor}")
 
-                        for chave in self.atributos:
-                            print("Escolha os valores para cada atributo: ")
+                    input("\nPressione ENTER para continuar...")
+                    self.limpar_tela()
 
+                    break
+
+                case 2:
+                    valores = self.distribuicao.aventureiro()
+
+                    for chave in self.atributos:
+
+                        # laço de repetição para a verificação da existência de valor em "valores"
+                        while True:
+
+                            # laço de repetição apenas para garantir a entrada de um valor inteiro
                             while True:
+                                print("Escolha um dos seguintes valores para cada atributo: ", end=' ')
                                 for i in valores:
                                     print(i, end=' ')
 
-                                valor = int(input(f"\n{chave}: "))
-
-                                self.limpar_tela()
-
-                                if valor in valores:
-                                    self.atributos[chave] = valor
-                                    valores.remove(valor)
+                                try:
+                                    valor = int(input(f"\n{chave}: "))
                                     break
-                                else:
-                                    print("Esse valor não está disponível!\n")
-                        break
+                                except ValueError:
+                                    self.limpar_tela()
+                                    print("Apenas números inteiros serão aceitos!\n")
 
-                    case 3: # melhorar bloco de código
-                        valores = self.distribuicao.heroico()
+                            # verifica se o valor existe, caso sim, adiciona ao atributo e remove de valores. Também limpa a tela
+                            if valor in valores:
+                                self.atributos[chave] = valor
+                                valores.remove(valor)
+                                self.limpar_tela()
+                                break
+                            else:
+                                self.limpar_tela()
+                                print("Esse valor não está disponível!\n")
 
-                        for chave in self.atributos:
-                            print("Escolha os valores para cada atributo: ")
+                    break
 
+                case 3:
+                    valores = self.distribuicao.heroico()
+
+                    for chave in self.atributos:
+
+                        # laço de repetição para a verificação de valor em "valores"
+                        while True:
+
+                            # laço de repetição apenas para garantir a entrada de um valor inteiro
                             while True:
+                                print("Escolha os valores para cada atributo: ", end=' ')
                                 for i in valores:
                                     print(i, end=' ')
 
-                                valor = int(input(f"\n{chave}: "))
-
-                                self.limpar_tela()
-
-                                if valor in valores:
-                                    self.atributos[chave] = valor
-                                    valores.remove(valor)
+                                try:
+                                    valor = int(input(f"\n{chave}: "))
                                     break
-                                else:
-                                    print("Esse valor não está disponível!\n")
-                        break
+                                except ValueError:
+                                    self.limpar_tela()
+                                    print("Apenas valores inteiros serão aceitos!\n")
 
-                    case _:
-                        print("Informe um valor válido!\n")
+                            # verifica se o valor existe, caso sim, adiciona e remove de valores. Também limpa a tela
+                            if valor in valores:
+                                self.atributos[chave] = valor
+                                valores.remove(valor)
+                                self.limpar_tela()
+                                break
+                            else:
+                                self.limpar_tela()
+                                print("Esse valor não está disponível!\n")
 
-            except ValueError:
-                print("Digite apenas números inteiros!\n")
+                    break
+
+                case _:
+                    self.limpar_tela()
+                    print("Informe um valor válido!\n")
 
     def limpar_tela(self):
         if os.name == "nt":
