@@ -4,26 +4,30 @@ class Distribuicao():
 
     def __init__(self):
         self.dado = RolarDados()
-        self.atributos = {}
 
     def classico(self):
-        self.atributos["Força"] = self.dado.rolar_d6()
-        self.atributos["Destreza"] = self.dado.rolar_d6()
-        self.atributos["Constituição"] = self.dado.rolar_d6()
-        self.atributos["inteligencia"] = self.dado.rolar_d6()
-        self.atributos["Sabedoria"] = self.dado.rolar_d6()
-        self.atributos["Carisma"] = self.dado.rolar_d6()
+        atributos = {}
+        atributos["Força"] = self.dado.rolar_3d6()
+        atributos["Destreza"] = self.dado.rolar_3d6()
+        atributos["Constituição"] = self.dado.rolar_3d6()
+        atributos["inteligencia"] = self.dado.rolar_3d6()
+        atributos["Sabedoria"] = self.dado.rolar_3d6()
+        atributos["Carisma"] = self.dado.rolar_3d6()
+
+        return atributos
 
     def aventureiro(self):
-        valores = []
+        soma = []
 
         for i in range(6):
-            valores.append(self.dado.rolar_d6())
-            # terminar
+            soma.append(self.dado.rolar_3d6())
+
+        return soma
 
     def heroico(self):
-        valores = []
+        soma = []
 
-        for i in range(7):
-            valores.append(self.dado.rolar_d6())
-            # terminar
+        for i in range(6):
+            soma.append(self.dado.rolar_4d6_descarta_menor())
+
+        return soma

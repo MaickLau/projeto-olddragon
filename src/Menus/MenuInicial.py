@@ -2,7 +2,7 @@ from .MenuCriarPersonagem import MenuCriarPersonagem
 
 class MenuInicial():
 
-    def mostrar_menu(self):
+    def mostrar_menuInicial(self):
 
         while True:
             print("----- Início -----\n")

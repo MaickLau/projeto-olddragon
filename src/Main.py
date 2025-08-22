@@ -1,9 +1,9 @@
-from src.Menus.MenuInicial import MenuInicial
+from Menus.MenuInicial import MenuInicial
 
 def main():
     
     menu = MenuInicial()
-    menu.mostrar_menu()
+    menu.mostrar_menuInicial()
 
 if __name__ == "__main__":
     main()
