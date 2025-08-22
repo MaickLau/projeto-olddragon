@@ -13,7 +13,7 @@ class MenuCriarPersonagem():
 
         while True:
 
-            # laço de repetição apenas para garantir a entrada de um valor inteiro
+            # garante entrada de uma valor inteiro
             while True:
                 try:
                     print("Escolha o estilo de distribuição:")
@@ -88,3 +88,10 @@ class MenuCriarPersonagem():
                 else:
                     self.limpar_tela()
                     print("Esse valor não está disponível!\n")
+        
+        print("Valores atribuidos: \n")
+        for chave, valor in self.atributos.items():
+            print(f"{chave}: {valor}")
+
+        input("\nPressione ENTER para continuar...")
+        self.limpar_tela()
