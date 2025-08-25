@@ -1,9 +1,9 @@
-from .MenuCriarPersonagem import MenuCriarPersonagem
+from .MenuAtributos import MenuAtributos
 
 class MenuInicial():
 
     def mostrar_menuInicial(self):
-        m = MenuCriarPersonagem()
+        m = MenuAtributos()
         m.limpar_tela()
 
         while True:

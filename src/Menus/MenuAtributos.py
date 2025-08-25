@@ -1,7 +1,7 @@
 import os
 from CriarPersonagem.Distribuicao import Distribuicao
 
-class MenuCriarPersonagem():
+class MenuAtributos():
 
     def __init__(self):
         self.atributos = {"Força": 0, "Destreza": 0, "Constituição": 0, "Inteligência": 0, "Sabedoria": 0, "Carisma": 0}
