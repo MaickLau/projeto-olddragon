@@ -1,5 +1,5 @@
 import os
-from CriarPersonagem.Distribuicao import Distribuicao
+from CriarPersonagem.Atributos.Distribuicao import Distribuicao
 
 class MenuAtributos():
 
@@ -13,7 +13,7 @@ class MenuAtributos():
 
         while True:
 
-            # garante entrada de uma valor inteiro
+            # garante entrada de um valor inteiro
             while True:
                 try:
                     print("Escolha o estilo de distribuição:")
