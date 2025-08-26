@@ -1,4 +1,4 @@
-from Atributos.RolarDados import RolarDados
+from CriarPersonagem.Atributos.RolarDados import RolarDados
 
 class Distribuicao:
 

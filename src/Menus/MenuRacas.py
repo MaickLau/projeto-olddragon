@@ -15,7 +15,7 @@ class MenuRacas:
 
         while True:
             try:
-                print("----- Criação de Personagens / Raças -----\n")
+                print("----- Criação de Personagem / Raças -----\n")
                 print("Escolha a raça do personagem:")
                 print("1. Humano")
                 print("2. Elfo")
