@@ -1,10 +1,11 @@
-from .MenuAtributos import MenuAtributos
+from utils.limpar_tela import limpar_tela
+from Menus.MenuAtributos import MenuAtributos
+from CriarPersonagem.Personagem import Personagem
 
-class MenuInicial():
+class MenuInicial:
 
     def mostrar_menuInicial(self):
-        m = MenuAtributos()
-        m.limpar_tela()
+        limpar_tela()
 
         while True:
             print("----- Início -----\n")
@@ -16,17 +17,22 @@ class MenuInicial():
 
                 match(opcao):
                     case 1:
-                        m.mostrar_menu()
+                        limpar_tela()
+                        nome = input("Digite o nome do personagem: ")
+                        personagem = Personagem(nome)
+                        m = MenuAtributos(personagem)
+                        limpar_tela()
+                        m.mostrar_menuAtributos()
                     
                     case 0:
-                        m.limpar_tela()
+                        limpar_tela()
                         print("Encerrando...\n")
                         break
 
                     case _:
-                        m.limpar_tela()
+                        limpar_tela()
                         print("Informe um valor válido!\n")
 
             except ValueError:
-                m.limpar_tela()
+                limpar_tela()
                 print("Digite apenas números inteiros!\n")

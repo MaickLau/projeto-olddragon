@@ -1,97 +1,95 @@
-import os
+from utils.limpar_tela import limpar_tela
+from Menus.MenuRacas import MenuRacas
 from CriarPersonagem.Atributos.Distribuicao import Distribuicao
+from CriarPersonagem.Personagem import Personagem
 
-class MenuAtributos():
+class MenuAtributos:
 
-    def __init__(self):
-        self.atributos = {"Força": 0, "Destreza": 0, "Constituição": 0, "Inteligência": 0, "Sabedoria": 0, "Carisma": 0}
+    def __init__(self, personagem : Personagem):
         self.distribuicao = Distribuicao()
+        self.personagem = personagem
 
-    def mostrar_menu(self):
-        self.limpar_tela()
-        print("----- Criação de Personagem / Distribuições -----\n")
+    def mostrar_menuAtributos(self):
 
+        # garante entrada de um valor inteiro
         while True:
+            try:
+                print("----- Criação de Personagem / Distribuições -----\n")
+                print("Escolha o estilo de distribuição:")
+                print("1. Estilo Clássico")
+                print("2. Estilo Aventureiro")
+                print("3. Estilo Heroico")
+                print("4. Voltar")
+                opcao = int(input("Escolha: "))
 
-            # garante entrada de um valor inteiro
-            while True:
-                try:
-                    print("Escolha o estilo de distribuição:")
-                    print("1. Estilo Clássico")
-                    print("2. Estilo Aventureiro")
-                    print("3. Estilo Heroico")
-                    opcao = int(input("Escolha: "))
+                match(opcao):
+                    case 1:
+                        limpar_tela()
+                        self.personagem.atributos = self.distribuicao.classico()
+                        print("Valores gerados:\n")
 
-                    self.limpar_tela()
-                    break
+                        for chave, valor in self.personagem.atributos.items():
+                            print(f"{chave:<12} : {valor:}")
 
-                except ValueError:
-                    self.limpar_tela()
-                    print("Apenas números inteiros serão aceitos!\n")
+                        input("\nPressione ENTER para continuar...")
+                        limpar_tela()
 
-            match(opcao):
-                case 1:
-                    self.atributos = self.distribuicao.classico()
-                    print("Valores gerados:\n")
+                        break
 
-                    for chave, valor in self.atributos.items():
-                        print(f"{chave}: {valor}")
+                    case 2:
+                        limpar_tela()
+                        self.distribuir_e_mostrar_atributos(self.distribuicao.aventureiro())
+                        break
 
-                    input("\nPressione ENTER para continuar...")
-                    self.limpar_tela()
+                    case 3:
+                        limpar_tela()
+                        self.distribuir_e_mostrar_atributos(self.distribuicao.heroico())
+                        break
 
-                    break
+                    case 4:
+                        limpar_tela()
+                        return
 
-                case 2:
-                    self.distribuir_e_mostrar_atributos(self.distribuicao.aventureiro())
-                    break
+                    case _:
+                        limpar_tela()
+                        print("Informe um valor válido!\n")
 
-                case 3:
-                    self.distribuir_e_mostrar_atributos(self.distribuicao.heroico())
-                    break
+            except ValueError:
+                limpar_tela()
+                print("Digite apenas números inteiros!\n")
 
-                case _:
-                    self.limpar_tela()
-                    print("Informe um valor válido!\n")
-
-    def limpar_tela(self):
-        if os.name == "nt":
-            os.system('cls')
-        else:
-            os.system('clear')
+        m = MenuRacas(self.personagem)
+        m.mostrar_menuRacas()
 
     def distribuir_e_mostrar_atributos(self, valores):
-        for chave in self.atributos:
+        for chave in self.personagem.atributos:
 
-            # para garantir que valor existe na lista antes de continuar
+            # para garantir a entrada de um número inteiro
             while True:
+                print("Escolha os valores para cada atributo: ", *valores)
 
-                # para garantir a entrada de um número inteiro
-                while True:
-                    print("Escolha os valores para cada atributo: ", end=' ')
-                    for i in valores:
-                        print(i, end=' ')
+                try:
+                    valor = int(input(f"\n{chave}: "))
 
-                    try:
-                        valor = int(input(f"\n{chave}: "))
+                    # se válido, atribui ao dicionário e remove da lista
+                    if valor in valores:
+                        self.personagem.atributos[chave] = valor
+                        valores.remove(valor)
+                        limpar_tela()
                         break
-                    except ValueError:
-                        self.limpar_tela()
-                        print("Apenas valores inteiros serão aceitos!\n")
+                    else:
+                        limpar_tela()
+                        print("Esse valor não está disponível!\n")
 
-                # se válido, atribui ao dicionário e remove da lista
-                if valor in valores:
-                    self.atributos[chave] = valor
-                    valores.remove(valor)
-                    self.limpar_tela()
-                    break
-                else:
-                    self.limpar_tela()
-                    print("Esse valor não está disponível!\n")
+                except ValueError:
+                    limpar_tela()
+                    print("Apenas valores inteiros serão aceitos!\n")
+
+
         
         print("Valores atribuidos: \n")
-        for chave, valor in self.atributos.items():
-            print(f"{chave}: {valor}")
+        for chave, valor in self.personagem.atributos.items():
+            print(f"{chave:<12} : {valor}")
 
         input("\nPressione ENTER para continuar...")
-        self.limpar_tela()
+        limpar_tela()

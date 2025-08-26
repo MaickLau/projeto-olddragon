@@ -1,6 +1,6 @@
-from .RolarDados import RolarDados
+from Atributos.RolarDados import RolarDados
 
-class Distribuicao():
+class Distribuicao:
 
     def __init__(self):
         self.dado = RolarDados()

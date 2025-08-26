@@ -1,6 +1,6 @@
 import random
 
-class RolarDados():
+class RolarDados:
 
     # simula o lançamendo de 1 dado de 6 lados
     def rolar_d6(self):
