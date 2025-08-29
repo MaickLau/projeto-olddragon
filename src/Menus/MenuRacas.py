@@ -1,4 +1,5 @@
 from utils.limpar_tela import limpar_tela
+from Menus.MenuClasses import MenuClasses
 from CriarPersonagem.Personagem import Personagem
 from CriarPersonagem.Racas.Humano import Humano
 from CriarPersonagem.Racas.Elfo import Elfo
@@ -9,7 +10,7 @@ class MenuRacas:
 
     def __init__(self, personagem : Personagem):
         self.personagem = personagem
-        self.racas = {"humano" : Humano, "elfo" : Elfo, "anão" : Anao, "halfling" : Halfling}
+        self.racas = {"humano": Humano, "elfo": Elfo, "anão": Anao, "halfling": Halfling}
 
     def mostrar_menuRacas(self):
 
@@ -59,12 +60,13 @@ class MenuRacas:
                 limpar_tela()
                 print("Digite apenas números inteiros!\n")
 
+        m = MenuClasses(self.personagem)
+        m.mostrar_menuClasses()
+
     def definir_raca(self, raca_nome):
         self.personagem.raca = self.racas[raca_nome]()
-        print(f"Um {raca_nome} possui:")
-        print(f"{'Movimento':<12}: {self.personagem.raca.movimento}")
-        print(f"{'Infravisão':<12}: {self.personagem.raca.infravisao}")
-        print(f"{'Alinhamento':<12}: {self.personagem.raca.alinhamento}")
+        limpar_tela()
+        self.personagem.raca.descricao()
 
         input("\nPressione ENTER para continuar...")
         limpar_tela()
