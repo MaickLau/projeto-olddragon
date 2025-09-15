@@ -1,19 +1,16 @@
-from CriarPersonagem.Atributos.RolarDados import RolarDados
+from .rolardados import rolar
 
 class Distribuicao:
-
-    def __init__(self):
-        self.dado = RolarDados()
 
     # retorna um dicionário com valores aleatórios armazenados em cada chave
     def classico(self):
         atributos = {}
-        atributos["Força"] = self.dado.rolar_3d6()
-        atributos["Destreza"] = self.dado.rolar_3d6()
-        atributos["Constituição"] = self.dado.rolar_3d6()
-        atributos["inteligencia"] = self.dado.rolar_3d6()
-        atributos["Sabedoria"] = self.dado.rolar_3d6()
-        atributos["Carisma"] = self.dado.rolar_3d6()
+        atributos["Força"] = sum(rolar())
+        atributos["Destreza"] = sum(rolar())
+        atributos["Constituição"] = sum(rolar())
+        atributos["Inteligencia"] = sum(rolar())
+        atributos["Sabedoria"] = sum(rolar())
+        atributos["Carisma"] = sum(rolar())
 
         return atributos
 
@@ -22,7 +19,7 @@ class Distribuicao:
         soma = []
 
         for i in range(6):
-            soma.append(self.dado.rolar_3d6())
+            soma.append(sum(rolar()))
 
         return soma
 
@@ -31,6 +28,8 @@ class Distribuicao:
         soma = []
 
         for i in range(6):
-            soma.append(self.dado.rolar_4d6_descarta_menor())
+            aux = rolar(6, 4)
+            aux.remove(min(aux))
+            soma.append(sum(aux))
 
         return soma

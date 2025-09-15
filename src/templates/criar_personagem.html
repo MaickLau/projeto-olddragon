@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Old Dragon</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Old Dragon RPG</h1>
+    </header>
+    <main>
+        <h2>Criação de Personagem</h2>
+
+        <form method="post">
+            <label for="nome">Nome:
+                <input type="text" id="nome" name="nome">
+            </label>
+
+            <label for="estilo">Estilo de distribuição:
+                <select name="estilo" id="estilo">
+                    <option value="classico">Clássico</option>
+                    <option value="aventureiro">Aventureiro</option>
+                    <option value="heroico">Heroico</option>
+                </select>
+            </label>
+
+            <label for="raca">Raça:
+                <select name="raca" id="raca">
+                    <option value="ANAO">Anão</option>
+                    <option value="HALFLING">Halfling</option>
+                    <option value="HUMANO">Humano</option>
+                    <option value="ELFO">Elfo</option>
+                </select>
+            </label>
+
+            <label for="classe">Classe:
+                <select name="classe" id="classe">
+                    <option value="CLERIGO">Clérigo</option>
+                    <option value="GUERREIRO">Guerreiro</option>
+                    <option value="LADRAO">Ladrão</option>
+                    <option value="MAGO">Mago</option>
+                </select>
+            </label>
+
+            <button type="submit">Gerar Personagem</button>
+        </form>
+    </main>
+</body>
+</html>
