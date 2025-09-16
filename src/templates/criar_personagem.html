@@ -132,9 +132,19 @@
             <h3>Personagem Criado</h3>
             <p><strong>Nome: </strong> {{ personagem.nome }}</p>
             <p><strong>Raça: </strong> {{ personagem.raca.nome }}</p>
-            <p><strong>Classe: </strong> {{ personagem.classe.nome }}</p>
-            <h4>Atributos</h4>
             <ul>
+                <li><strong>Movimento: </strong>{{ personagem.raca.movimento }}</li>
+                <li><strong>Infravisão: </strong>{{ personagem.raca.infravisao }}</li>
+                <li><strong>Alinhamento: </strong>{{ personagem.raca.alinhamento }}</li>
+            </ul>
+            <p><strong>Classe: </strong> {{ personagem.classe.nome }}</p>
+            <ul>
+                <li><strong>Armas: </strong>{{ personagem.classe.armas }}</li>
+                <li><strong>Armaduras: </strong>{{ personagem.classe.armaduras }}</li>
+                <li><strong>Itens Mágicos: </strong>{{ personagem.classe.itens_magicos }}</li>
+            </ul>
+            <h4>Atributos</h4>
+            <ul">
                 {% for atributo, valor in personagem.atributos.items() %}
                 <li><strong>{{ atributo }}: </strong>{{ valor }}</li>
                 {% endfor %}

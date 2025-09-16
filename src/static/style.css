@@ -76,9 +76,6 @@ h3 {
 }
 
 ul {
-    list-style: none;
-}
-
-ul li {
     margin-bottom: 8px;
+    padding-left: 30px;
 }
