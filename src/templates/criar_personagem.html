@@ -15,7 +15,7 @@
 
         <form method="post">
             <label for="nome">Nome:
-                <input type="text" id="nome" name="nome">
+                <input type="text" id="nome" name="nome" value="{{ nome or '' }}">
             </label>
 
             <label for="estilo">Estilo de distribuição:
@@ -46,6 +46,101 @@
 
             <button type="submit">Gerar Personagem</button>
         </form>
+
+        {% if distribuindo %}
+        <h3>Distribua os valores para os atributos</h3>
+        <form method="post">
+            <input type="hidden" name="nome" value="{{ nome }}">
+            <input type="hidden" name="raca" value="{{ raca }}">
+            <input type="hidden" name="classe" value="{{ classe }}">
+            <input type="hidden" name="estilo" value="{{ estilo }}">
+            <input type="hidden" name="atributos_finais" value="1">
+
+            {% for atributo in ["Força", "Destreza", "Constituição", "Inteligência", "Sabedoria", "Carisma"] %}
+                <label>{{ atributo }}:
+                    <select name="{{ atributo }}" class="selecao_atributos" required>
+                        <option value="">-</option>
+                        {% for valor in valores %}
+                            <option value="{{ valor }}">{{ valor }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+            {% endfor %}
+
+            <button type="submit">Confirmar Distribuição</button>
+        </form>
+        {% endif %}
+
+        <script>
+            const selects = document.querySelectorAll(".selecao_atributos");
+
+            // Pega os valores disponíveis a partir das opções do primeiro select
+            function getValoresDisponiveis() {
+                const primeiroSelect = selects[0];
+                return Array.from(primeiroSelect.options)
+                    .filter(opt => opt.value !== "")
+                    .map(opt => opt.value);
+            }
+
+            function atualizarOpcoes() {
+                const valoresDisponiveis = getValoresDisponiveis();
+                // Conta quantas vezes cada valor aparece na lista de valores
+                const ocorrencias = {};
+                valoresDisponiveis.forEach(v => {
+                    ocorrencias[v] = ocorrencias[v] ? ocorrencias[v] + 1 : 1;
+                });
+
+                // Conta quantas vezes cada valor foi escolhido
+                const escolhidos = {};
+                selects.forEach(select => {
+                    const val = select.value;
+                    if (val && val !== "") {
+                        escolhidos[val] = escolhidos[val] ? escolhidos[val] + 1 : 1;
+                    }
+                });
+
+                selects.forEach(select => {
+                    Array.from(select.options).forEach(option => {
+                        if (option.value === "") {
+                            option.disabled = false;
+                            return;
+                        }
+                        // Quantas vezes esse valor já foi escolhido (excluindo o select atual)
+                        let count = 0;
+                        selects.forEach(s => {
+                            if (s !== select && s.value === option.value) {
+                                count++;
+                            }
+                        });
+                        // Só desabilita se já foi escolhido o número máximo de vezes
+                        if (count >= ocorrencias[option.value]) {
+                            option.disabled = true;
+                        } else {
+                            option.disabled = false;
+                        }
+                    });
+                });
+            }
+
+            selects.forEach(select => select.addEventListener("change", atualizarOpcoes));
+            // Inicializa ao carregar
+            atualizarOpcoes();
+        </script>
+
+        {% if criado and personagem %}
+        <section>
+            <h3>Personagem Criado</h3>
+            <p><strong>Nome: </strong> {{ personagem.nome }}</p>
+            <p><strong>Raça: </strong> {{ personagem.raca.nome }}</p>
+            <p><strong>Classe: </strong> {{ personagem.classe.nome }}</p>
+            <h4>Atributos</h4>
+            <ul>
+                {% for atributo, valor in personagem.atributos.items() %}
+                <li><strong>{{ atributo }}: </strong>{{ valor }}</li>
+                {% endfor %}
+            </ul>
+        </section>
+        {% endif %}
     </main>
 </body>
 </html>

@@ -18,14 +18,49 @@ def criar_personagem():
         raca = request.form.get("raca").upper()
         classe = request.form.get("classe").upper()
 
-        personagem = Personagem(nome, RacaPersonagem[raca], ClassePersonagem[classe])
+        if request.form.get("atributos_finais"):
+            atributos_finais = {
+                "Força": int(request.form.get("Força")),
+                "Destreza": int(request.form.get("Destreza")),
+                "Constituição": int(request.form.get("Constituição")),
+                "Inteligência": int(request.form.get("Inteligência")),
+                "Sabedoria": int(request.form.get("Sabedoria")),
+                "Carisma": int(request.form.get("Carisma"))
+            }
 
+            personagem = Personagem(
+                nome=nome,
+                raca=RacaPersonagem[raca],
+                classe=ClassePersonagem[classe]
+            )
+            personagem.atributos = atributos_finais
+
+            return render_template("criar_personagem.html", criado=True, personagem=personagem)
+        
         distribuicao = Distribuicao()
 
+        if estilo == "classico":
+            atributos = distribuicao.classico()
+            personagem = Personagem(nome, RacaPersonagem[raca], ClassePersonagem[classe])
+            personagem.atributos = atributos
+            return render_template("criar_personagem.html", criado=True, personagem=personagem)
+        
+        else:
+            if estilo == "aventureiro":
+                valores = distribuicao.aventureiro()
+            else:
+                valores = distribuicao.heroico()
 
-        return render_template("criar_personagem.html", personagem=personagem, criado=True)
+        return render_template(
+            "criar_personagem.html",
+            distribuindo=True,
+            valores=valores,
+            nome=nome,
+            raca=raca,
+            classe=classe,
+            estilo=estilo)
     
     return render_template("criar_personagem.html",personagem=None, criado=False)
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)
