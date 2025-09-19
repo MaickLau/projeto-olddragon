@@ -11,41 +11,49 @@
         <h1>Old Dragon RPG</h1>
     </header>
     <main>
-        <h2>Criação de Personagem</h2>
+        
+        {% if not criado and not personagem and not distribuindo%}
+        <section>
+            <h2>Criação de Personagem</h2>
 
-        <form method="post">
-            <label for="nome">Nome:
-                <input type="text" id="nome" name="nome" value="{{ nome or '' }}">
-            </label>
+            <form method="post">
+                <label for="nome">Nome:
+                    <input type="text" id="nome" name="nome" value="{{ nome or '' }}" required>
+                </label>
 
-            <label for="estilo">Estilo de distribuição:
-                <select name="estilo" id="estilo">
-                    <option value="classico">Clássico</option>
-                    <option value="aventureiro">Aventureiro</option>
-                    <option value="heroico">Heroico</option>
-                </select>
-            </label>
+                <label for="estilo">Estilo de distribuição:
+                    <select name="estilo" id="estilo" required>
+                        <option value="">-</option>
+                        <option value="classico">Clássico</option>
+                        <option value="aventureiro">Aventureiro</option>
+                        <option value="heroico">Heroico</option>
+                    </select>
+                </label>
 
-            <label for="raca">Raça:
-                <select name="raca" id="raca">
-                    <option value="ANAO">Anão</option>
-                    <option value="HALFLING">Halfling</option>
-                    <option value="HUMANO">Humano</option>
-                    <option value="ELFO">Elfo</option>
-                </select>
-            </label>
+                <label for="raca">Raça:
+                    <select name="raca" id="raca" required>
+                        <option value="">-</option>
+                        <option value="ANAO">Anão</option>
+                        <option value="HALFLING">Halfling</option>
+                        <option value="HUMANO">Humano</option>
+                        <option value="ELFO">Elfo</option>
+                    </select>
+                </label>
 
-            <label for="classe">Classe:
-                <select name="classe" id="classe">
-                    <option value="CLERIGO">Clérigo</option>
-                    <option value="GUERREIRO">Guerreiro</option>
-                    <option value="LADRAO">Ladrão</option>
-                    <option value="MAGO">Mago</option>
-                </select>
-            </label>
+                <label for="classe">Classe:
+                    <select name="classe" id="classe" required>
+                        <option value="">-</option>
+                        <option value="CLERIGO">Clérigo</option>
+                        <option value="GUERREIRO">Guerreiro</option>
+                        <option value="LADRAO">Ladrão</option>
+                        <option value="MAGO">Mago</option>
+                    </select>
+                </label>
 
-            <button type="submit">Gerar Personagem</button>
-        </form>
+                <button type="submit">Gerar Personagem</button>
+            </form>
+        </section>
+        {% endif %}
 
         {% if distribuindo %}
         <h3>Distribua os valores para os atributos</h3>
@@ -144,11 +152,15 @@
                 <li><strong>Itens Mágicos: </strong>{{ personagem.classe.itens_magicos }}</li>
             </ul>
             <h4>Atributos</h4>
-            <ul">
+            <ul>
                 {% for atributo, valor in personagem.atributos.items() %}
                 <li><strong>{{ atributo }}: </strong>{{ valor }}</li>
                 {% endfor %}
             </ul>
+
+            <form method="get" action="{{ url_for ('criar_personagem') }}">
+                <button typer="submit">Retornar</button>
+            </form>
         </section>
         {% endif %}
     </main>
